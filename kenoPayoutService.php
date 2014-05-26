@@ -122,4 +122,6 @@ $payout_data = "setPayouts(
     }
 });";
 
+echo $payout_data;
+
 $kenoBucketService->upload('payouts.js',$payout_data);

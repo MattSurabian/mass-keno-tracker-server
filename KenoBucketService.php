@@ -12,9 +12,9 @@ use Aws\S3\S3Client;
 
 class KenoBucketService {
 
-    protected $aws_key_id = 'AWS KEY ID';
-    protected $aws_access_key = 'AWS ACCESS KEY';
-    protected $s3_bucket = 'keno-tracker-ma';
+    protected $aws_key_id;
+    protected $aws_access_key;
+    protected $s3_bucket;
 
     /**
      * @var S3Client $s3_client
@@ -32,6 +32,9 @@ class KenoBucketService {
      * Connects client to S3
      */
     public function __construct(){
+        $this->aws_access_key = getenv('AWS_ACCESS_KEY');
+        $this->aws_key_id = getenv('AWS_KEY_ID');
+        $this->s3_bucket = getenv('AWS_S3_BUCKET');
         $this->connect();
     }
 
@@ -51,6 +54,7 @@ class KenoBucketService {
                 'ContentType' => $contentType
             ));
         } catch (Exception $e){
+            echo $e->getMessage();
             // TODO: Something with errors? Silent fail is fine for now and likley the result of an AWS outage
         }
     }
